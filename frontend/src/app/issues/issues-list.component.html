@@ -1,0 +1,59 @@
+<div class="toolbar">
+  <input placeholder="Search title" [(ngModel)]="search" (keyup.enter)="page=1; load()" />
+  <select [(ngModel)]="status" (change)="page=1; load()">
+    <option value="">All Statuses</option>
+    <option value="open">Open</option>
+    <option value="in_progress">In Progress</option>
+    <option value="resolved">Resolved</option>
+    <option value="closed">Closed</option>
+  </select>
+  <select [(ngModel)]="priority" (change)="page=1; load()">
+    <option value="">All Priorities</option>
+    <option value="low">Low</option>
+    <option value="medium">Medium</option>
+    <option value="high">High</option>
+    <option value="critical">Critical</option>
+  </select>
+  <input placeholder="Assignee" [(ngModel)]="assignee" (keyup.enter)="page=1; load()" />
+  <button (click)="resetFilters()">Reset</button>
+  <button (click)="openCreate()">Create Issue</button>
+</div>
+
+<table class="issues">
+  <thead>
+    <tr>
+      <th (click)="changeSort('id')">ID</th>
+      <th (click)="changeSort('title')">Title</th>
+      <th (click)="changeSort('status')">Status</th>
+      <th (click)="changeSort('priority')">Priority</th>
+      <th (click)="changeSort('assignee')">Assignee</th>
+      <th (click)="changeSort('updatedAt')">Updated</th>
+      <th>Actions</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let issue of items" (click)="openDetail(issue)">
+      <td>{{ issue.id }}</td>
+      <td>{{ issue.title }}</td>
+      <td>{{ issue.status }}</td>
+      <td>{{ issue.priority }}</td>
+      <td>{{ issue.assignee || '-' }}</td>
+      <td>{{ issue.updatedAt | date:'short' }}</td>
+      <td>
+        <button (click)="openEdit(issue, $event)">Edit</button>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+<div class="pagination">
+  <button [disabled]="page===1" (click)="onPageChange(page-1)">Prev</button>
+  <span>Page {{ page }} of {{ Math.max(1, Math.ceil(total / pageSize)) }}</span>
+  <button [disabled]="page >= Math.ceil(total / pageSize)" (click)="onPageChange(page+1)">Next</button>
+  <select [(ngModel)]="pageSize" (change)="onPageSizeChange(pageSize)">
+    <option [ngValue]="5">5</option>
+    <option [ngValue]="10">10</option>
+    <option [ngValue]="20">20</option>
+  </select>
+</div>
+
