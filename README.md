@@ -1,117 +1,27 @@
-# Issue Tracker (FastAPI + Angular)
+# Frontend
 
-A simple Issue Tracker with a Python FastAPI backend and an Angular frontend. Users can view, search, filter, sort, paginate, create, and update issues. Clicking a row opens the detail view; an Edit button opens the form.
+This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 18.2.21.
 
-## Prerequisites
-- Python 3.11+ (3.10+ should also work)
-- Node.js 18+ and npm
+## Development server
 
-## 1) Backend (FastAPI)
+Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
 
-1. Create a virtual environment and install dependencies
-```bash
-cd /Users/archhcra/Desktop/intern
-python3 -m venv .venv
-source .venv/bin/activate
-pip install -r backend/requirements.txt
-```
+## Code scaffolding
 
-2. Run the API server
-```bash
-uvicorn backend.main:app --reload --port 8000
-```
+Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
 
-3. Verify it is working
-```bash
-curl http://127.0.0.1:8000/health
-# => {"status":"ok"}
-```
-Open interactive API docs: `http://127.0.0.1:8000/docs`
+## Build
 
-Notes
-- Sample issues are auto-seeded at startup.
-- Endpoints
-  - GET `/health`
-  - GET `/issues` (query: `search`, `status`, `priority`, `assignee`, `sortBy`, `sortDir`, `page`, `pageSize`)
-  - GET `/issues/{id}`
-  - POST `/issues`
-  - PUT `/issues/{id}`
+Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
 
-Example requests
-```bash
-# List issues (first page)
-curl "http://127.0.0.1:8000/issues?page=1&pageSize=10&sortBy=updatedAt&sortDir=desc"
+## Running unit tests
 
-# Create an issue
-curl -X POST "http://127.0.0.1:8000/issues" \
-  -H "Content-Type: application/json" \
-  -d '{
-    "title": "New issue from curl",
-    "description": "Repro steps...",
-    "status": "open",
-    "priority": "medium",
-    "assignee": "me"
-  }'
+Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
 
-# Get single issue
-curl "http://127.0.0.1:8000/issues/1"
+## Running end-to-end tests
 
-# Update an issue
-curl -X PUT "http://127.0.0.1:8000/issues/1" \
-  -H "Content-Type: application/json" \
-  -d '{
-    "title": "Updated title",
-    "priority": "high"
-  }'
-```
+Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
 
-## 2) Frontend (Angular)
+## Further help
 
-1. Install dependencies
-```bash
-cd /Users/archhcra/Desktop/intern/frontend
-npm install
-```
-
-2. Start the dev server
-```bash
-npm start
-```
-Open the app at: `http://127.0.0.1:4200`
-
-The frontend is configured to call the backend at `http://127.0.0.1:8000`.
-
-## Features
-- Issues List table with columns: `id`, `title`, `status`, `priority`, `assignee`, `updatedAt`
-- Filters: status, priority, assignee; text search on title
-- Sorting: click any column header to sort
-- Pagination: page and page size
-- Create Issue button: opens form to add new issue
-- Edit button: updates issue (row click opens detail view)
-- Detail view: displays form and raw JSON
-
-## Troubleshooting
-- Port already in use (backend 8000 or frontend 4200)
-```bash
-lsof -i :8000   # or :4200
-kill -9 <PID>
-```
-- CORS: Enabled on the backend for local development (allow all origins)
-- Virtualenv not activated: ensure `source .venv/bin/activate` before `pip install`
-
-## Project Structure
-```
-/Users/archhcra/Desktop/intern
-├─ backend/              # FastAPI app (endpoints and in-memory store)
-│  ├─ main.py            # FastAPI app and routes
-│  ├─ models.py          # Pydantic models and enums
-│  ├─ store.py           # Thread-safe in-memory store and seeding
-│  └─ requirements.txt   # Python dependencies
-├─ frontend/             # Angular app (standalone components)
-│  └─ src/app/
-│     ├─ services/issues.service.ts
-│     ├─ issues/issues-list.component.*
-│     └─ issues/issue-detail.component.*
-└─ README.md             # This file
-```
-
+To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
