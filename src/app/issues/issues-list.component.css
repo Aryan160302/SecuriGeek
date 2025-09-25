@@ -1,7 +1,0 @@
-.toolbar { display: flex; gap: 8px; align-items: center; margin-bottom: 12px; }
-.issues { width: 100%; border-collapse: collapse; }
-.issues th, .issues td { border: 1px solid #ddd; padding: 8px; }
-.issues tr { cursor: pointer; }
-.issues thead th { background: #f4f4f4; cursor: pointer; }
-.pagination { display: flex; align-items: center; gap: 8px; margin-top: 12px; }
-
